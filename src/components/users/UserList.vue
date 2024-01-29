@@ -64,6 +64,7 @@ export default {
     }
 
     const sorting = ref(null);
+    
     const displayedUsers = computed(function () {
       if (!sorting.value) {
         return availableUsers.value;
