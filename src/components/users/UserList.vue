@@ -34,6 +34,7 @@ export default {
     UserItem,
   },
   props: ['users'],
+  emits: ['list-projects'],
   setup(props) {
     const enteredSearchTerm = ref('');
     const activeSearchTerm = ref('');
@@ -50,24 +51,19 @@ export default {
       return users;
     });
 
-    watch(enteredSearchTerm, function (newValue){
-    setTimeout(() => {
-    if (newValue === enteredSearchTerm.value) {
-      activeSearchTerm.value = newValue;
-    }
-    }, 300);
+    watch(enteredSearchTerm, function (newValue) {
+      setTimeout(() => {
+        if (newValue === enteredSearchTerm.value) {
+          activeSearchTerm.value = newValue;
+        }
+      }, 300);
     });
 
     function updateSearch(val) {
       enteredSearchTerm.value = val;
     }
 
-    function sort(mode) {
-      sorting.value = mode;
-    }
-
     const sorting = ref(null);
-
     const displayedUsers = computed(function () {
       if (!sorting.value) {
         return availableUsers.value;
@@ -85,23 +81,21 @@ export default {
       });
     });
 
-     return {
-  enteredSearchTerm,
-  activeSearchTerm,
-  sorting,
-  availableUsers,
-  displayedUsers,
-  updateSearch,
-  sort,
-};
+    function sort(mode) {
+      sorting.value = mode;
+    }
+
+    return {
+      enteredSearchTerm,
+      activeSearchTerm,
+      sorting,
+      availableUsers,
+      displayedUsers,
+      updateSearch,
+      sort,
+    };
   },
-
-
-
- 
-
 };
-
 </script>
 
 <style scoped>
